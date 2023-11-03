@@ -1,0 +1,64 @@
+global:
+  dataset_args_base: &dataset_args_base
+    task_type: binding
+    prefix: ./dataset
+    fold: 0
+    train_dataset_dir: ImmuBPI_B
+
+model:
+  type: Transformer_fusion
+  args: 
+    d_model: 128
+    n_head: 4
+    n_layers: 4
+    dropout: 0.1
+    add_cls: True
+
+train_dataset:
+  type: ImmuBPIDataset
+  args:
+    <<: *dataset_args_base
+    type: train
+
+valid_dataset:
+  type: ImmuBPIDataset
+  args:
+    <<: *dataset_args_base
+    type: "val" # or valid if not cv
+    
+test_dataset:
+  type: ImmuBPIDataset
+  args:
+    <<: *dataset_args_base
+    type: "" 
+
+    
+collate_function:
+  type: SeqDictCollateFn
+  args:
+    seq_keys: ["epitope", "hla", "wt_list"]
+    seq_max_lens: [15, 34, 15]
+
+loss:
+  type: LogitNLLLoss
+  args: 
+    weight: 
+    reduction: mean
+
+
+
+save_remark: ImmuBPI_B_Model
+interval: 500
+tensorboard: false
+debug: false            # 'Debug Mode'
+decrease_epoch: 10
+epoch: 1000
+epoch_shuffle: true
+
+log: true
+lr: 5.0e-05
+num_workers: 4
+batch_size: 1024
+print: true
+save_model: true
+seed: 2

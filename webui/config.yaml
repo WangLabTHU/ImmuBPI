@@ -1,0 +1,12 @@
+ImmuBPI_B:
+  path: "./models_saved/ImmuBPI_B_Model"
+  ensemble: True
+
+ImmuBPI_P:
+  path: "./models_saved/ImmuBPI_P_Model"
+  ensemble: True
+
+ImmuBPI_I:
+  path: "./models_saved/ImmuBPI_I_Model"
+  ensemble: True
+

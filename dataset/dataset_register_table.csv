@@ -1,0 +1,8 @@
+dataset_name,file_path
+TransPHLA_external,ImmuBPI_B/external_set.csv
+TransPHLA_independent,ImmuBPI_B/independent_set.csv
+DeepNeo,ImmuBPI_I/deepneo_tcr_10fold.csv
+neoepitope,ImmuBPI_I/test/neoepitopes.csv
+iedb_infectious,ImmuBPI_I/test/iedb_infectious.csv
+my_test,example.csv
+my_test2,example_nolabel.csv

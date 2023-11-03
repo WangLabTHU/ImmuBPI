@@ -1,0 +1,71 @@
+global:
+  dataset_args_base: &dataset_args_base
+    task_type: immunogenicity
+    prefix: ./dataset
+    fold: 0
+    train_dataset_dir: ImmuBPI_I/deepneo_tcr_10fold.csv #bigMHC_immu/bigmhc_immu_dataset_10fold.csv
+
+
+model:
+  type: Transformer_fusion
+  args: 
+    d_model: 128
+    n_head: 4
+    n_layers: 4
+    dropout: 0.1
+    add_cls: True
+    
+
+train_dataset:
+  type: ImmuBPIDataset
+  args:
+    <<: *dataset_args_base
+    type: train
+
+
+valid_dataset:
+  type: ImmuBPIDataset
+  args:
+    <<: *dataset_args_base
+    type: "val"
+
+test_dataset:
+  type: ImmuBPIDataset
+  args:
+    <<: *dataset_args_base
+    type: "" 
+    
+
+collate_function:
+  type: SeqDictCollateFn
+  args:
+    seq_keys: ["epitope", "hla", "wt_list"]
+    seq_max_lens: [15, 34, 15]
+    mask_HLA: False
+    mask_epitope: False
+    mask_anchor: False
+
+
+loss:
+  type: LogitNLLLoss
+  args: 
+    weight: 
+    reduction: mean
+
+
+
+save_remark: ImmuBPI_I_Model_NoDebias
+interval: 200
+seed: 2
+tensorboard: false
+debug: false            # 'Debug Mode'
+decrease_epoch: 10
+epoch: 1000
+
+
+log: true
+lr: 5.0e-05
+num_workers: 4
+batch_size: 1024
+save_model: true
+
