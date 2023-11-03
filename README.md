@@ -22,9 +22,10 @@ To install the dependency, you could do it by
 pip install -r requirements.txt
 ```
 
-> Note: to faithfully reproduce the training process, we recommend using `cuda 11.8` (by `conda install cudatoolkit=11.8`). In our project setup checking, there is a slight difference in the training process and final performance with `cuda 11.7`. It is due to the operator implementation and precision shifting in cuda. We recommend you follow this step to step up
-> 1. `conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia`
-> 2. `pip install -r requirement.txt`
+> Note: to faithfully reproduce the training process, we recommend using `cuda 11.8` (by `conda install cudatoolkit=11.8`). In our project setup checking, there is a slight difference in the training process and final performance with `cuda 11.7` or different device driver version. It is due to the operator implementation and precision shifting in cuda. We recommend you follow this step to step up
+> 1. Use nvidia GeForce RTX 3090 with driver version `525.125.06`
+> 2. `conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia`
+> 3. `pip install -r requirement.txt`
 > 
 > For inference-only usage, there is no special version requirement on `cuda` or other driver lib and system lib. Just do the `pip install` command and have fun.
 
@@ -55,7 +56,7 @@ python run_main.py -c <path to config file>
 
 The config file contains the settings of model type, dataset type, training strategy and hyperparameter.
 
-In this repo, we provide config files for our best binding, presentation, immunogenicity modles in `./configs`
+In this repo, we provide a example config file and config files for our best binding, presentation, immunogenicity models in `./configs`. For all the parameter setting, like training learning rate, parts to be masked and so on, please check the commonts in  `./configs/example_config.yaml`.
 
 
 ## ⭐️ Inference 

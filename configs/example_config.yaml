@@ -3,7 +3,7 @@ global:
     task_type: immunogenicity
     prefix: ./dataset
     fold: 0
-    train_dataset_dir: ImmuBPI_I/deepneo_tcr_10fold.csv 
+    train_dataset_dir: ImmuBPI_I/deepneo_tcr_10fold.csv # train_dataset_dir
 
 
 model:
@@ -41,9 +41,9 @@ collate_function:
   args:
     seq_keys: ["epitope", "hla", "wt_list"]
     seq_max_lens: [15, 34, 15]
-    mask_HLA: True
-    mask_epitope: False
-    mask_anchor: True
+    mask_HLA: True           # if True: mask HLA
+    mask_epitope: False      # if True: mask epitope
+    mask_anchor: True        # if True: mask anchor positions
 
 
 loss:
@@ -58,7 +58,7 @@ save_remark: ImmuBPI_I_Model
 interval: 200
 seed: 2
 tensorboard: false
-debug: false            # 'Debug Mode'
+debug: false            
 decrease_epoch: 10
 epoch: 1000
 

@@ -25,9 +25,9 @@ hla_list = list(hla2seq_dict.keys())
 def read_table_file(file_obj: tempfile._TemporaryFileWrapper) -> pd.DataFrame:
     path = file_obj.name
     if path.endswith('.csv'):
-        df = pd.read_csv(path, index_col=0)
+        df = pd.read_csv(path)
     elif path.endswith('.xlsx'):
-        df = pd.read_xlsc(path, index_col=0)
+        df = pd.read_xlsc(path)
     else:
         raise TypeError('Unsupported file format(we only support .csv and .xlsx)')
     return df
@@ -59,7 +59,7 @@ def _predict_table(table: pd.DataFrame):
     elif 'epitope' in table:
         epitope_list = list(table['epitope'])
     elif 'Epitope' in table:
-        epitope_list = list(tablep['Epitope'])
+        epitope_list = list(table['Epitope'])
 
     batch_size = 64
     n = len(hla_list)
