@@ -1,7 +1,7 @@
-# Discovering and overcoming the bias in neoantigen identification by unified machine learning models
+# Unified machine learning framework uncovers overlooked bias control in immunogenic neoantigen identification
 
 This repository provides official implementation for Paper 
-*Discovering and overcoming the bias in neoantigen identification by unified machine learning models*.
+*Unified machine learning framework uncovers overlooked bias control in immunogenic neoantigen identification*.
 
 ![ImmuBPI overview](./docs/cover.png)
 
@@ -156,5 +156,24 @@ You can look up the results file `transformer_feature.npy` and `transformer_feat
 
 <br>
 
+## ⭐️ Citation
 
+```
+@inproceedings{zhang2024discovering,
+  title={Discovering and overcoming the bias in neoantigen identification by unified machine learning models},
+  author={Zhang, Ziting and Wu, Wenxu and Wei, Lei and Wang, Xiaowo},
+  booktitle={International Conference on Research in Computational Molecular Biology},
+  pages={348--351},
+  year={2024},
+  organization={Springer}
+}
+
+@article{Zhang2024.02.07.579420,
+  author={Zhang, Ziting and Wu, Wenxu and Wei, Lei and Qi, Hai and Wang, Xiaowo},
+  title={Unified machine learning framework uncovers overlooked bias control in immunogenic neoantigen identification},
+  year={2025},
+  eprint= {https://www.biorxiv.org/content/early/2025/01/27/2024.02.07.579420.full.pdf}
+}
+
+```
 
