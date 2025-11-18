@@ -1,18 +1,25 @@
 # Cross-task interpretability through unified modeling reveals a universal shortcut bias in neoantigen prediction
 
 
-This repository provides official implementation for Paper 
-*Cross-task interpretability through unified modeling reveals a universal shortcut bias in neoantigen prediction*.
+This repository contains the implementation of ImmUni, the unified transformer-based framework introduced in our manuscript “Cross-task interpretability through unified modeling reveals a universal shortcut bias in neoantigen prediction.”
 
-![ImmuBPI overview](./docs/cover.png)
+ImmUni models three key stages of neoantigen processing — peptide–HLA binding, antigen presentation, and T cell immunogenicity activation — within a single architectural framework.
+By enforcing a consistent representational scheme across tasks, ImmUni enables cross-task interpretability, allowing upstream, well-characterized processes to serve as internal comparators for diagnosing shortcut learning and dataset-driven biases in downstream prediction tasks.
 
-## ⭐️ Backgournd
+An earlier version of this framework was presented under the name ImmuBPI at RECOMB 2024 (https://doi.org/10.1007/978-1-0716-3989-4_28). To maintain continuity and avoid fragmenting the codebase, we retain the original repository name ImmuBPI, while the current manuscript refers to the unified model as ImmUni.
+No functional changes were made to the implementation for this renaming; the code here corresponds to the version used in both the RECOMB presentation and the current manuscript.
+
+![ImmuBPI overview](./docs/ImmUni.jpg)
+
+## ⭐️ Background
 <div style="text-align:center;">
 <img src="./docs/background.png" alt="neoantigen illustration" width="70%">
 </div>
 
-There are three main steps in the neoantigen immune process, i.e., binding with MHCs, extracellular presentation, and induction of immunogenicity. ImmuBPI is a unified machine learning framework that comprised  three tasks. 
+There are three main steps in the neoantigen immune process, i.e., binding with MHCs, extracellular presentation, and induction of immunogenicity. 
+While these stages operate on the same underlying biological entities, the available datasets differ greatly in quality, scale, and bias, making downstream immunogenicity prediction particularly vulnerable to shortcut learning. Existing models often perform well on isolated benchmarks yet fail to generalize, raising questions about whether they truly capture biological determinants or merely reflect dataset-specific artifacts.
 
+ImmUni was designed to address this challenge by modeling all three stages within a unified transformer architecture. This enables cross-task interpretability: well-understood upstream processes serve as internal references that reveal when the downstream immunogenicity model deviates from mechanistic expectations. Through this unified perspective, ImmUni uncovers a pervasive shortcut bias driven by intra-HLA label imbalance and provides a principled framework for diagnosing and mitigating such biases in multi-step biological modeling.
 
 ## ⭐️ Setup 
 
@@ -156,25 +163,4 @@ PYTHONPATH=./ python ./scripts/generate_embedding.py -p ./models_saved/ImmuBPI_I
 You can look up the results file `transformer_feature.npy` and `transformer_feature.npy` at the folder named after your abbreviation saved under the model folder.
 
 <br>
-
-## ⭐️ Citation
-
-```
-@inproceedings{zhang2024discovering,
-  title={Discovering and overcoming the bias in neoantigen identification by unified machine learning models},
-  author={Zhang, Ziting and Wu, Wenxu and Wei, Lei and Wang, Xiaowo},
-  booktitle={International Conference on Research in Computational Molecular Biology},
-  pages={348--351},
-  year={2024},
-  organization={Springer}
-}
-
-@article{Zhang2024.02.07.579420,
-  author={Zhang, Ziting and Wu, Wenxu and Wei, Lei and Qi, Hai and Wang, Xiaowo},
-  title={Unified machine learning framework uncovers overlooked bias control in immunogenic neoantigen identification},
-  year={2025},
-  eprint= {https://www.biorxiv.org/content/early/2025/01/27/2024.02.07.579420.full.pdf}
-}
-
-```
 
