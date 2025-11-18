@@ -1,7 +1,8 @@
-# Unified machine learning framework uncovers overlooked bias control in immunogenic neoantigen identification
+# Cross-task interpretability through unified modeling reveals a universal shortcut bias in neoantigen prediction
+
 
 This repository provides official implementation for Paper 
-*Unified machine learning framework uncovers overlooked bias control in immunogenic neoantigen identification*.
+*Cross-task interpretability through unified modeling reveals a universal shortcut bias in neoantigen prediction*.
 
 ![ImmuBPI overview](./docs/cover.png)
 
