@@ -63,7 +63,7 @@ class SeqDictCollateFn(object):
                     seq_ids = [seq2vocab(seq.ljust(max_len, "*")) for seq in v]
 
                 elif isinstance(v[0][0], str):
-                    # TODO 支持任意层的List[List[...[str]]], by 查找深度+partial + map
+                    # TODO support recursive [List[List[...[str]]]]
 
                     # padding_mask (torch.Tensor, dtype=torch.bool): in shape [B, NUM_WT, L]
                     padding_mask = torch.zeros((len(v), len(v[0]), max_len), dtype=torch.bool)

@@ -74,7 +74,7 @@ class Trainer():
 
 
     def init_logging(self):
-        #每一次训练，都创建一个新的文件夹用于存放模型文件和对应的log
+        # create new folder to saving checkpoints and log for each training
 
         if self.args.save_remark:
             self.save_root = Path("./models_saved") / self.args.save_remark / ('Fold_'+str(self.args.train_dataset['args']['fold']))
@@ -83,7 +83,7 @@ class Trainer():
         
         self.save_root.mkdir(parents=True)
         setup_logging(self.save_root)
-        #记录每次训练的args
+        # also save args into log
         with open(self.save_root / 'config.yaml', 'wt') as f:
             yaml.safe_dump(vars(self.args), f, indent=4)
 
@@ -167,7 +167,7 @@ class Trainer():
         self.val_best_saver.update(self.val_evaluator.auc, self.epoch)
 
         logging.info(f'Validation Accuracy {self.val_evaluator.accu:.4f} | AUC {self.val_evaluator.auc:.4f} | PRAUC {self.val_evaluator.prauc:.4f}')
-        # 连续X个epoch验证集AUC没有上升就停止
+        # early stop when there is no improvement in AUC in `x` epoch
         #logging.debug(f"{self.val_accu.argmax}, {self.val_accu.max}")
 
 

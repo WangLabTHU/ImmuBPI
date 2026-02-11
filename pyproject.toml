@@ -11,10 +11,6 @@ authors = [
 requires-python = ">=3.8, <3.12"
 license = { file = "LICENSE" }
 
-# TODO check
-dependencies = [
-]
-
 [tool.ruff]
 target-version = "py38"
 line-length = 119

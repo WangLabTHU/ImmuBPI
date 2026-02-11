@@ -56,7 +56,9 @@ def adaptive_transfer_name(hla_type):
 
 # TODO refactor with regex to improve the readbility
 """
-HLA的几种表示方式，可以以长度鉴别
+Different HLA type string formats and length
+which can be converted to standard format by counting length and switch to different convert logic
+
 A0101 5
 HLA-A01:01 10
 HLA-A*2402 10

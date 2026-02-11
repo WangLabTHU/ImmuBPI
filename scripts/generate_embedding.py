@@ -124,7 +124,7 @@ class Test:
             self.projection_layer_all_models.append(self.model.projection[-1].cpu())
 
             path = Path(os.path.dirname(single_model_path))
-            # 保存单个模型结果
+            # saving the result of the single model
             with open(self.get_save_path(path) / "transformer_feature.npy", "wb") as f:
                 np.save(f, transformer_value)
                 print("*" * 10, f"Save features to {self.get_save_path(path)}/transformer_feature.npy", "*" * 10)
@@ -133,7 +133,7 @@ class Test:
                 np.save(f, projection_value)
                 print("*" * 10, f"Save features to {self.get_save_path(path)}/projection_feature.npy", "*" * 10)
 
-        # 综合计算得分
+        # calculate overall score
         self.save_root = self.get_save_path(self.args.model_path[0].parent.parent)
         with open(self.save_root / "transformer_feature.npy", "wb") as f:
             self.transformer_value_all_models = np.concatenate(self.transformer_value_all_models, axis=1)
