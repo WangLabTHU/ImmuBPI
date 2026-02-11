@@ -13,4 +13,3 @@ def setup_seed(seed: int) -> None:
     random.seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-    

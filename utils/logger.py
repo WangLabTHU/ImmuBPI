@@ -1,6 +1,7 @@
 import logging.config
 from typing import TYPE_CHECKING
 
+
 if TYPE_CHECKING:
     from pathlib import Path
 
@@ -13,32 +14,29 @@ BASE_LOGGER_CONFIG = {
     },
     "handlers": {
         "console": {
-            "class": "logging.StreamHandler",                   # print every thing on screen
+            "class": "logging.StreamHandler",  # print every thing on screen
             "level": "DEBUG",
             "formatter": "simple",
-            "stream": "ext://sys.stdout"
+            "stream": "ext://sys.stdout",
         },
         "info_file_handler": {
-            "class": "logging.handlers.RotatingFileHandler",     # log info level and above into file (i.e. ignore DEBUG)
+            "class": "logging.handlers.RotatingFileHandler",  # log info level and above into file (i.e. ignore DEBUG)
             "level": "INFO",
             "formatter": "datetime",
             "filename": "info.log",
             "maxBytes": 10485760,
             "backupCount": 20,
-            "encoding": "utf8"
-        }
+            "encoding": "utf8",
+        },
     },
-    "root": {
-        "level": "DEBUG",
-        "handlers": ["console", "info_file_handler"]
-    }
+    "root": {"level": "DEBUG", "handlers": ["console", "info_file_handler"]},
 }
 
 
 def setup_logging(
     log_root: "Path",
 ) -> None:
-    """ set up logging module into both console on screen and into log file"""
+    """set up logging module into both console on screen and into log file"""
     config = BASE_LOGGER_CONFIG
     for handler_config in config["handlers"].values():
         if "filename" in handler_config:

@@ -1,6 +1,6 @@
 import argparse
 
-import yaml  # type: ignore
+import yaml
 import torch
 import trainer as trainer_package
 import models as model_package

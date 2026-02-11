@@ -8,7 +8,7 @@ from typing import Any, Callable, TYPE_CHECKING, Optional
 import numpy as np
 import torch
 import torch.optim as optim
-import yaml  # type: ignore
+import yaml
 from torch.utils.data import DataLoader
 from utils import PerformanceEvaluator, DataSaver, setup_logging
 from torch.utils.tensorboard import SummaryWriter

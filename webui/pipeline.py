@@ -1,16 +1,15 @@
-import os
 from pathlib import Path
 from typing import Any, Callable, List, Union
 
 import torch
-import yaml
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
+import yaml
 
-import models as model_package
 import data as data_package
+import models as model_package
 from utils import init_obj
+
 
 class Ensemble(nn.Module):
     def __init__(self, model_list: List[nn.Module]):
@@ -24,14 +23,13 @@ class Ensemble(nn.Module):
         return output
 
 
-
 class ImmuBPIPipeline:
     def __init__(
         self,
         model: nn.Module,
         collate_fn: Callable[[List[dict]], dict],
-        device: Union[str, int, torch.device] = 'cpu',
-        need_softmax: bool = True
+        device: Union[str, int, torch.device] = "cpu",
+        need_softmax: bool = True,
     ) -> None:
         self.model = model
         self.collate_fn = collate_fn
@@ -40,7 +38,6 @@ class ImmuBPIPipeline:
 
         self.model.eval()
         self.model.to(device)
-
 
     def to(self, device: Union[str, int, torch.device]):
         device = torch.device(device)
@@ -52,39 +49,38 @@ class ImmuBPIPipeline:
     def from_pretrained(
         cls,
         path: Union[str, Path],
-        model_ckpt_name: str = 'best_model.pth',
+        model_ckpt_name: str = "best_model.pth",
         ensemble: bool = False,
     ):
         path = Path(path) if isinstance(path, str) else path
         if not ensemble:
-            with open(path / 'config.yaml') as f:
+            with open(path / "config.yaml") as f:
                 config = yaml.safe_load(f)
 
-            model = init_obj(config['model'], model_package)
+            model = init_obj(config["model"], model_package)
             model.load_state_dict(torch.load(path / model_ckpt_name))
-        
-            collate_fn = init_obj(config['collate_function'], data_package)
-            return cls(model = model, collate_fn = collate_fn)
+
+            collate_fn = init_obj(config["collate_function"], data_package)
+            return cls(model=model, collate_fn=collate_fn)
         else:
-            with open(path / 'Fold_0' / 'config.yaml') as f:
+            with open(path / "Fold_0" / "config.yaml") as f:
                 config = yaml.safe_load(f)
 
-            collate_fn = init_obj(config['collate_function'], data_package)
+            collate_fn = init_obj(config["collate_function"], data_package)
 
             model_list = []
             for sub_folder in path.iterdir():
                 if not sub_folder.is_dir():
                     continue
-                if not sub_folder.stem.startswith('Fold'):
+                if not sub_folder.stem.startswith("Fold"):
                     continue
-                
-                model = init_obj(config['model'], model_package)
+
+                model = init_obj(config["model"], model_package)
                 model.load_state_dict(torch.load(sub_folder / model_ckpt_name))
                 model_list.append(model)
 
             model = Ensemble(model_list)
-            return cls(model = model, collate_fn = collate_fn, need_softmax=False)
-
+            return cls(model=model, collate_fn=collate_fn, need_softmax=False)
 
     @torch.no_grad()
     def __call__(
@@ -102,7 +98,7 @@ class ImmuBPIPipeline:
         assert len(epitope) == len(hla), "number of of epitope and HLA must in same length"
 
         # 1. tokenize
-        input_dicts = [{'epitope': e, 'hla': h} for e, h in zip(epitope, hla)]
+        input_dicts = [{"epitope": e, "hla": h} for e, h in zip(epitope, hla)]
         input_dicts = self.collate_fn(input_dicts)
 
         # 2. inference
@@ -115,15 +111,13 @@ class ImmuBPIPipeline:
         outputs = outputs[:, 1]
         outputs = outputs.cpu().numpy()
 
-
         return outputs
 
 
-
-if __name__ == '__main__':
-    pipe = ImmuBPIPipeline.from_pretrained('./RECOMB_models_saved/bigmhc_immu_all/Fold_0')
+if __name__ == "__main__":
+    pipe = ImmuBPIPipeline.from_pretrained("./RECOMB_models_saved/bigmhc_immu_all/Fold_0")
     print(pipe.model)
     print(pipe.device)
-    epitope = ['ALASCMGLIY', 'ALEVLQSIPY']
-    HLA = ['HLA-A*01:01'] * 2
+    epitope = ["ALASCMGLIY", "ALEVLQSIPY"]
+    HLA = ["HLA-A*01:01"] * 2
     print(pipe(epitope, HLA))
