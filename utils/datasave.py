@@ -15,10 +15,10 @@ class DataSaver(object):
         self.count = 0
         self.last = 0
 
-    def update(self, val, epoch = -100):
+    def update(self, val, epoch=-100):
         self.last = self.val
         self.val = val
-        self.sum += val 
+        self.sum += val
         self.count += 1
         self.avg = self.sum / self.count
         if val > self.max:

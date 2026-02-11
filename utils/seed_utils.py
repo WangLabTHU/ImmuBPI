@@ -5,7 +5,7 @@ import torch
 
 
 def setup_seed(seed: int) -> None:
-    # 设定随机种子
+    # set random seed in all related libraries
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -13,4 +13,3 @@ def setup_seed(seed: int) -> None:
     random.seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-    

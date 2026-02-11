@@ -1,6 +1,6 @@
 import argparse
 
-import yaml  # type: ignore
+import yaml
 import torch
 import trainer as trainer_package
 import models as model_package
@@ -11,7 +11,6 @@ from utils import init_obj, setup_seed
 class ConfigArgs(object):
     def __init__(self, **arg_dicts) -> None:
         self.__dict__.update(arg_dicts)
-        # TODO recursive transfer 
 
 def parser_args() -> ConfigArgs:
     parser = argparse.ArgumentParser("torchepitope training and testing")
@@ -36,7 +35,6 @@ def main():
     setup_seed(getattr(args, 'seed', 2)) 
     print(f"Set up seed {getattr(args, 'seed', 2)}")
 
-    # TODO refactor test as scripts/notebooks
     model = init_obj(args.model, model_package)
     collate_function = init_obj(args.collate_function, data_package)
     train_dataset = init_obj(args.train_dataset, data_package)
